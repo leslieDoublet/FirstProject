@@ -3,6 +3,7 @@ package fr.eseo.firstproject;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +18,31 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends ListActivity implements android.view.View.OnClickListener{
+//public class MainActivity extends ListActivity implements android.view.View.OnClickListener{
+public class MainActivity extends ActionBarActivity {
 
-    Button btnAdd,btnGetAll;
-    TextView level_Id;
+   // Button btnAdd,btnGetAll;
+    //TextView level_Id;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+    }
+
+    /*@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(this);
+
+        btnGetAll = (Button) findViewById(R.id.btnGetAll);
+        btnGetAll.setOnClickListener(this);
+    }*/
+
+   /* @Override
     public void onClick(View view) {
         if (view== findViewById(R.id.btnAdd)){
 
@@ -54,19 +74,25 @@ public class MainActivity extends ListActivity implements android.view.View.OnCl
             }
 
         }
+    }*/
+
+    public void onClick1(View view)
+    {
+        Intent intent = new Intent(this, LevelActivity.class);
+      //  intent.putExtra("question", getString(R.string.question1));
+      //  intent.putExtra("response", getString(R.string.reponse1));
+        intent.putExtra("question", getString(R.string.question1));
+        intent.putExtra("response", getString(R.string.reponse1));
+        startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        btnAdd = (Button) findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
-
-        btnGetAll = (Button) findViewById(R.id.btnGetAll);
-        btnGetAll.setOnClickListener(this);
-
+    public void onClick2(View view)
+    {
+        Intent intent = new Intent(this, LevelActivity.class);
+        intent.putExtra("question", getString(R.string.question2));
+        intent.putExtra("response", getString(R.string.reponse2));
+        startActivity(intent);
+        //Toast.makeText(this, "level 2", Toast.LENGTH_SHORT).show();
     }
 
 

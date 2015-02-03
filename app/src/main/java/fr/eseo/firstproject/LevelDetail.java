@@ -33,7 +33,7 @@ public class LevelDetail  extends ActionBarActivity  {
         setContentView(R.layout.activity_level);
 
 
-        textNumber = (TextView) findViewById(R.id.textQuestion);
+        //textNumber = (TextView) findViewById(R.id.textQuestion);
 
 
         _Level_Id =0;
