@@ -9,11 +9,13 @@ public class Response {
     // Labels Table Columns names
     public static final String KEY_ID = "id";
     public static final String KEY_word = "word";
-    public static final String KEY_sentence = "sentence";
+    public static final String KEY_question = "question";
+    public static final String KEY_found = "found";
 
 
-    public int question_ID;
+    public int response_ID;
     public String word;
-    public int sentence;
+    public int question;
+    public boolean found;
 
 }
