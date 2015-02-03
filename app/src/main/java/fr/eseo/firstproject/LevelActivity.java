@@ -14,47 +14,25 @@ import android.widget.TextView;
 /**
  * Created by etudiant on 02/02/2015.
  */
-/*public class LevelActivity extends FragmentActivity {
-
-    private PagerAdapter mPagerAdapter;
-
-    @Override
-    //Implémentation du swipe
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_level);
-
-        // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List<Fragment> fragments = new Vector<Fragment>();
-
-        // Ajout des Fragments dans la liste
-        fragments.add(Fragment.instantiate(this, Question_frag.class.getName()));
-        fragments.add(Fragment.instantiate(this,Response_frag.class.getName()));
-
-        // Création de l'adapter qui s'occupera de l'affichage de la liste de Fragments
-        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-
-        ViewPager pager = (ViewPager) super.findViewById(R.id.viewPager);
-        // Affectation de l'adapter au ViewPager
-        pager.setAdapter(this.mPagerAdapter);
-    }
-}*/
-
-//PREMIERE VERSION
 public class LevelActivity extends FragmentActivity {
 
     Adapter adapter;
     ViewPager pager;
+    private int levelId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
 
-        TextView textElement = (TextView) findViewById(R.id.question);
-
+        levelId =0;
         Intent intent = getIntent();
-        textElement.setText(intent.getStringExtra("question"));
+        levelId =intent.getIntExtra("level_Id", 0);
+        QuestionRepo qrepo = new QuestionRepo(this);
+        Question question= qrepo.getQuestionByLevel(levelId);
+
+        TextView questionSentence = (TextView) findViewById(R.id.question);
+        questionSentence.setText(question.sentence);
 
         //TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager());
 
@@ -83,3 +61,28 @@ public class LevelActivity extends FragmentActivity {
     }
 
 }
+/*public class LevelActivity extends FragmentActivity {
+
+    private PagerAdapter mPagerAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        super.setContentView(R.layout.activity_level);
+
+        // Création de la liste de Fragments que fera défiler le PagerAdapter
+        List<Fragment> fragments = new Vector<Fragment>();
+
+        // Ajout des Fragments dans la liste
+        fragments.add(Fragment.instantiate(this, Question_frag.class.getName()));
+        fragments.add(Fragment.instantiate(this, Response_frag.class.getName()));
+
+        // Création de l'adapter qui s'occupera de l'affichage de la liste de Fragments
+        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
+
+        ViewPager pager = (ViewPager) super.findViewById(R.id.viewPager);
+        // Affectation de l'adapter au ViewPager
+        pager.setAdapter(this.mPagerAdapter);
+    }
+}
+*/
