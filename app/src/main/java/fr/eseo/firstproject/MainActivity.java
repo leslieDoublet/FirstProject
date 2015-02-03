@@ -36,7 +36,7 @@ public class MainActivity extends ListActivity{
                 public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                     level_Id = (TextView) view.findViewById(R.id.level_Id);
                     String levelId = level_Id.getText().toString();
-                    Intent objIndent = new Intent(getApplicationContext(),LevelDetail.class);
+                    Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
                     objIndent.putExtra("level_Id", Integer.parseInt(levelId));
                     startActivity(objIndent);
                 }

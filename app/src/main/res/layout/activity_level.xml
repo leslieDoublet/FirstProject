@@ -5,30 +5,7 @@
     android:weightSum="1"
     android:background="#ffaaaaaa">
 
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/viewPager"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-
-        <EditText
-            android:layout_width="206dp"
-            android:layout_height="35dp"
-            android:id="@+id/userResponse"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="20dp"
-            android:background="#ffffffff"
-            android:editable="true"
-            android:enabled="true"
-            android:singleLine="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
-
-    </android.support.v4.view.ViewPager>
-
-
-
-    <!-- <FrameLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -86,6 +63,6 @@
                 android:isIndicator="true"/>
         </FrameLayout>
 
-    </FrameLayout>-->
+    </FrameLayout>
 
 </LinearLayout>
