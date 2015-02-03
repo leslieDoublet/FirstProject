@@ -47,24 +47,6 @@ public class MainActivity extends ListActivity{
             Toast.makeText(this,"No level!",Toast.LENGTH_SHORT).show();
         }
     }
-    public void onClick1(View view)
-    {
-        Intent intent = new Intent(this, LevelActivity.class);
-        //  intent.putExtra("question", getString(R.string.question1));
-        //  intent.putExtra("response", getString(R.string.reponse1));
-        intent.putExtra("question", getString(R.string.question1));
-        intent.putExtra("response", getString(R.string.reponse1));
-        startActivity(intent);
-    }
-
-    public void onClick2(View view)
-    {
-        Intent intent = new Intent(this, LevelActivity.class);
-        intent.putExtra("question", getString(R.string.question2));
-        intent.putExtra("response", getString(R.string.reponse2));
-        startActivity(intent);
-        //Toast.makeText(this, "level 2", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
