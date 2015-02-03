@@ -1,31 +1,25 @@
 package fr.eseo.firstproject;
 
-//import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by etudiant on 02/02/2015.
  */
-public class LevelActivity extends FragmentActivity {
+/*public class LevelActivity extends FragmentActivity {
 
     private PagerAdapter mPagerAdapter;
 
     @Override
+    //Implémentation du swipe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_level);
@@ -44,10 +38,10 @@ public class LevelActivity extends FragmentActivity {
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
     }
-}
+}*/
 
 //PREMIERE VERSION
-/*public class LevelActivity extends FragmentActivity {
+public class LevelActivity extends FragmentActivity {
 
     Adapter adapter;
     ViewPager pager;
@@ -88,4 +82,4 @@ public class LevelActivity extends FragmentActivity {
         });
     }
 
-}*/
+}
