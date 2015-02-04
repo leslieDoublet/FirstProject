@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="341dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffb0b0b0"
+        android:id="@+id/frame_hint"
+        android:layout_weight="0.08">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="146dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/hint_question"
+            android:layout_weight="0.17"
+            android:layout_gravity="center_horizontal|top"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="#ff000000"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="232dp"
+            android:layout_height="59dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/hint_response"
+            android:layout_gravity="center"
+            android:gravity="bottom|center_horizontal"
+            android:textSize="20dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:layout_width="168dp"
+            android:layout_height="40dp"
+            android:id="@+id/hint_userResponse"
+            android:background="#ffffffff"
+            android:editable="true"
+            android:enabled="true"
+            android:singleLine="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_weight="0.5"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp" />
+
+    </FrameLayout>
+</LinearLayout>

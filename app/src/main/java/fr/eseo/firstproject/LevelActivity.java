@@ -3,28 +3,25 @@ package fr.eseo.firstproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by etudiant on 02/02/2015.
  */
 public class LevelActivity extends FragmentActivity {
 
-    Adapter adapter;
-    ViewPager pager;
     private int levelId;
     private int questionId;
+    private String question_string;
+    private  ArrayList<Response> responses ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +35,11 @@ public class LevelActivity extends FragmentActivity {
 
         TextView questionSentence = (TextView) findViewById(R.id.question);
         questionSentence.setText(question.sentence);
-        questionId=question.question_ID;
 
-        //TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager());
+        questionId=question.question_ID;
+        question_string=question.sentence;
+        ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+        responses =rrepo.getResponseByQuestion(LevelActivity.this.questionId);
 
 
         final EditText editText = (EditText) findViewById(R.id.userResponse);
@@ -49,12 +48,7 @@ public class LevelActivity extends FragmentActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String userResponse = v.getText().toString();
-                    //Toast.makeText(LevelActivity.this, response, Toast.LENGTH_SHORT).show();
                     RatingBar rate = (RatingBar) findViewById(R.id.ratingBar);
-
-                    ArrayList<Response> responses=new ArrayList<Response>();
-                    ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
-                    responses =rrepo.getResponseByQuestion(LevelActivity.this.questionId);
 
                     TextView responseWord = (TextView) findViewById(R.id.response);
 
@@ -76,6 +70,21 @@ public class LevelActivity extends FragmentActivity {
                 return false;
             }
         });
+    }
+
+    public void getHint (View view)
+    {
+        Intent intent = new Intent(this,HintActivity.class);
+
+        ArrayList<String> responses_word = new ArrayList<String>();
+        for(int i=0; i<responses.size(); i++)
+            responses_word.add(responses.get(i).word);
+
+        intent.putExtra("reponses_word", responses_word );
+        intent.putExtra("question", question_string );
+        intent.putExtra("id", questionId);
+        intent.putExtra("level_Id", levelId);
+        startActivity(intent);
     }
 
 }
