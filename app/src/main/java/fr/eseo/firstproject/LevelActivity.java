@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/**
- * Created by etudiant on 02/02/2015.
- */
 public class LevelActivity extends FragmentActivity {
 
     private int levelId;

@@ -28,8 +28,7 @@
         </activity>
         <activity
             android:name=".QuestionActivity"
-            android:label="@string/question_activity"
-            android:windowSoftInputMode="stateAlwaysVisible">
+            android:label="@string/question_activity">
         </activity>
     </application>
 

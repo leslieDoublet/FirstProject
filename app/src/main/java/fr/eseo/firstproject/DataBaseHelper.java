@@ -3,9 +3,7 @@ package fr.eseo.firstproject;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-/**
- * Created by sirt on 03/02/2015.
- */
+
 public class DataBaseHelper extends SQLiteOpenHelper {
 
         private static final int DATABASE_VERSION = 12;

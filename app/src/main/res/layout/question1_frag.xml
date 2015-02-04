@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#ffaaaaaa">
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="171dp"
         android:id="@+id/question1"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:onClick="onClick"/>
+        android:layout_marginTop="105dp"
+        android:onClick="onClick"
+        android:layout_weight="0.12"
+        android:background="#fffcb2ff"/>
 </LinearLayout>

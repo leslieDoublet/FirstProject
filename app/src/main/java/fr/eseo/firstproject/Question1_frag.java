@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * Created by etudiant on 03/02/2015.
- */
+
 public class Question1_frag extends Fragment {
 
     private String text;
