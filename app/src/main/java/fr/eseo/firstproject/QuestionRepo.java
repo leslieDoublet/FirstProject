@@ -63,6 +63,7 @@ public class QuestionRepo {
             do {
                 question.question_ID =cursor.getInt(cursor.getColumnIndex(Question.KEY_ID));
                 question.sentence =cursor.getString(cursor.getColumnIndex(Question.KEY_sentence));
+                question.level =cursor.getInt(cursor.getColumnIndex(Question.KEY_level));
             } while (cursor.moveToNext());
         }
 
@@ -74,6 +75,7 @@ public class QuestionRepo {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Question.KEY_ID + "," +
+                Question.KEY_level + "," +
                 Question.KEY_sentence +
                 " FROM " + Question.TABLE
                 + " WHERE " +
@@ -88,6 +90,7 @@ public class QuestionRepo {
             do {
                 question.question_ID =cursor.getInt(cursor.getColumnIndex(Question.KEY_ID));
                 question.sentence =cursor.getString(cursor.getColumnIndex(Question.KEY_sentence));
+                question.level =cursor.getInt(cursor.getColumnIndex(Question.KEY_level));
             } while (cursor.moveToNext());
         }
 

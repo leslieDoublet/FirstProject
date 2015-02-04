@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -26,7 +27,7 @@ public class LevelActivity extends FragmentActivity {
     Adapter adapter;
     ViewPager pager;
     private int levelId;
-
+    private int questionId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class LevelActivity extends FragmentActivity {
 
         TextView questionSentence = (TextView) findViewById(R.id.question);
         questionSentence.setText(question.sentence);
+        questionId=question.question_ID;
 
         //TabPagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager());
 
@@ -52,13 +54,25 @@ public class LevelActivity extends FragmentActivity {
                     String userResponse = v.getText().toString();
                     //Toast.makeText(LevelActivity.this, response, Toast.LENGTH_SHORT).show();
                     RatingBar rate = (RatingBar) findViewById(R.id.ratingBar);
-                    TextView response = (TextView) findViewById(R.id.response);
-                    Intent intent = getIntent();
-                    if (userResponse.trim().equalsIgnoreCase(intent.getStringExtra("response")))
-                    {
-                        rate.setRating(1);
-                        response.setText(intent.getStringExtra("response"));
-                    }
+
+                    ArrayList<Response> responses=new ArrayList<Response>();
+                    ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+                    responses =rrepo.getResponseByQuestion(LevelActivity.this.questionId);
+
+                    TextView responseWord = (TextView) findViewById(R.id.response);
+
+                    int arraySize=responses.size(),i=0;
+                    boolean trouve=false;
+                    do {
+
+                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).word))
+                        {
+                            rate.setRating(1);
+                            responseWord.setText(responses.get(i).word);
+                            trouve=true;
+                        }
+                        i++;
+                    }while (trouve==false && i!=arraySize );
                     editText.setText(null);
                     return true;
                 }

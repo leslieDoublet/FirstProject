@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by sirt on 03/02/2015.
  */
@@ -51,7 +53,8 @@ public class ResponseRepo {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Response.KEY_ID + "," +
-                Response.KEY_word +
+                Response.KEY_word  + "," +
+                Response.KEY_question +","+
                 Response.KEY_found +
                 " FROM " + Response.TABLE
                 + " WHERE " +
@@ -75,32 +78,34 @@ public class ResponseRepo {
         db.close();
         return response;
     }
-    public Response getResponseByQuestion(int questionId){
+    public ArrayList<Response> getResponseByQuestion(int questionId){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        ArrayList<Response> responses= new ArrayList<Response>();
         String selectQuery =  "SELECT  " +
                 Response.KEY_ID + "," +
-                Response.KEY_word +
+                Response.KEY_word +","+
+                Response.KEY_question +","+
                 Response.KEY_found +
                 " FROM " + Response.TABLE
                 + " WHERE " +
                 Response.KEY_question + "=?";
 
-        int iCount =0;
-        Response response = new Response();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(questionId) } );
 
         if (cursor.moveToFirst()) {
             do {
+                Response response = new Response();
                 response.response_ID =cursor.getInt(cursor.getColumnIndex(Response.KEY_ID));
                 response.word =cursor.getString(cursor.getColumnIndex(Response.KEY_word));
                 response.question =cursor.getInt(cursor.getColumnIndex(Response.KEY_question));
                 //   response.found =cursor.getInt(cursor.getColumnIndex(Response.KEY_found));
+                responses.add(response);
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
-        return response;
+        return responses;
     }
 }
