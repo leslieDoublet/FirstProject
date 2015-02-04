@@ -39,11 +39,15 @@ public class HintActivity extends Activity {
 
         //Affiche l'indice sous forme " A _ _ _ _ "
         TextView hintResponse = (TextView) findViewById(R.id.hint_response);
-        int length = response_word.length();
+        int length = response_word.length()*2-1;
         char[] tab = new char[length];
         tab[0] = response_word.charAt(0);
         for(int i=1; i<length; i++)
+        {
+            tab[i]=' ';
+            i++;
             tab[i]='_';
+        }
         hintResponse.setText(String.valueOf(tab));
 
         //Récupère la réponse de type Response correspondant au mot cherché
