@@ -10,8 +10,16 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/level_string"
+        android:text="Niveau"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:singleLine="true" />
+    <TextView
         android:id="@+id/level_number"
-        android:layout_width="fill_parent"
+        android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:paddingLeft="6dip"
         android:paddingTop="6dip"

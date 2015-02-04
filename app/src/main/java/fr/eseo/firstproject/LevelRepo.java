@@ -21,7 +21,7 @@ public class LevelRepo {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Level.KEY_number, level.number);
+        values.put(Level.KEY_number, level.getNumber());
 
         // Inserting Row
         long level_Id = db.insert(Level.TABLE, null, values);
@@ -41,9 +41,9 @@ public class LevelRepo {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Level.KEY_number, level.number);
+        values.put(Level.KEY_number, level.getNumber());
 
-        db.update(Level.TABLE, values, Level.KEY_ID + "= ?", new String[] { String.valueOf(level.level_ID) });
+        db.update(Level.TABLE, values, Level.KEY_ID + "= ?", new String[] { String.valueOf(level.getLevel_ID()) });
         db.close(); // Closing database connection
     }
 
@@ -85,15 +85,14 @@ public class LevelRepo {
                 + " WHERE " +
                 Level.KEY_ID + "=?";
 
-        int iCount =0;
         Level level = new Level();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
 
         if (cursor.moveToFirst()) {
             do {
-                level.level_ID =cursor.getInt(cursor.getColumnIndex(Level.KEY_ID));
-                level.number =cursor.getInt(cursor.getColumnIndex(Level.KEY_number));
+                level.setLevel_ID(cursor.getInt(cursor.getColumnIndex(Level.KEY_ID))) ;
+                level.setNumber(cursor.getInt(cursor.getColumnIndex(Level.KEY_number))) ;
             } while (cursor.moveToNext());
         }
 

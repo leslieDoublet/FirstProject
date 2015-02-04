@@ -6,11 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity">Level Activity</string>
     <string name="hint_activity">Hint Activity</string>
+    <string name="title_main_activity">Niveau</string>
 
-    <string name="question1">Cirque</string>
-    <string name="question2">Style de musique</string>
-
-    <string name="reponse1">Chapiteau</string>
-    <string name="reponse2">Rock</string>
 
 </resources>

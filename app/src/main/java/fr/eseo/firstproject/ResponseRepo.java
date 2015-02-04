@@ -21,9 +21,9 @@ public class ResponseRepo {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Response.KEY_found, response.found);
-        values.put(Response.KEY_word, response.word);
-        values.put(Response.KEY_question, response.question);
+        values.put(Response.KEY_found, response.isFound()== true ? 1 : 0);
+        values.put(Response.KEY_word, response.getWord());
+        values.put(Response.KEY_question, response.getQuestion());
 
         // Inserting Row
         long response_Id = db.insert(Response.TABLE, null, values);
@@ -42,11 +42,11 @@ public class ResponseRepo {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Response.KEY_found, response.found);
-        values.put(Response.KEY_word, response.word);
-        values.put(Response.KEY_question, response.question);
+        values.put(Response.KEY_found, response.isFound()== true ? 1 : 0);
+        values.put(Response.KEY_word, response.getWord());
+        values.put(Response.KEY_question, response.getQuestion());
 
-        db.update(Response.TABLE, values, Response.KEY_ID + "= ?", new String[] { String.valueOf(response.response_ID) });
+        db.update(Response.TABLE, values, Response.KEY_ID + "= ?", new String[] { String.valueOf(response.getResponse_ID()) });
         db.close();
     }
     public Response getResponseById(int Id){
@@ -60,17 +60,16 @@ public class ResponseRepo {
                 + " WHERE " +
                 Response.KEY_ID + "=?";
 
-        int iCount =0;
         Response response = new Response();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
 
         if (cursor.moveToFirst()) {
             do {
-                response.response_ID =cursor.getInt(cursor.getColumnIndex(Response.KEY_ID));
-                response.word =cursor.getString(cursor.getColumnIndex(Response.KEY_word));
-                response.question =cursor.getInt(cursor.getColumnIndex(Response.KEY_question));
-             //   response.found =cursor.getInt(cursor.getColumnIndex(Response.KEY_found));
+                response.setResponse_ID(cursor.getInt(cursor.getColumnIndex(Response.KEY_ID)));
+                response.setWord(cursor.getString(cursor.getColumnIndex(Response.KEY_word)));
+                response.setQuestion(cursor.getInt(cursor.getColumnIndex(Response.KEY_question)));
+                response.setFound(cursor.getInt(cursor.getColumnIndex(Response.KEY_found))== 1 ? true : false);
             } while (cursor.moveToNext());
         }
 
@@ -97,10 +96,10 @@ public class ResponseRepo {
         if (cursor.moveToFirst()) {
             do {
                 Response response = new Response();
-                response.response_ID =cursor.getInt(cursor.getColumnIndex(Response.KEY_ID));
-                response.word =cursor.getString(cursor.getColumnIndex(Response.KEY_word));
-                response.question =cursor.getInt(cursor.getColumnIndex(Response.KEY_question));
-                //   response.found =cursor.getInt(cursor.getColumnIndex(Response.KEY_found));
+                response.setResponse_ID(cursor.getInt(cursor.getColumnIndex(Response.KEY_ID)));
+                response.setWord(cursor.getString(cursor.getColumnIndex(Response.KEY_word)));
+                response.setQuestion(cursor.getInt(cursor.getColumnIndex(Response.KEY_question)));
+                response.setFound(cursor.getInt(cursor.getColumnIndex(Response.KEY_found))== 1 ? true : false);
                 responses.add(response);
             } while (cursor.moveToNext());
         }

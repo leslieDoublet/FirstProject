@@ -19,8 +19,8 @@ public class QuestionRepo {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Question.KEY_sentence, question.sentence);
-        values.put(Question.KEY_level, question.level);
+        values.put(Question.KEY_level, question.getLevel());
+        values.put(Question.KEY_sentence, question.getSentence());
 
         // Inserting Row
         long question_Id = db.insert(Question.TABLE, null, values);
@@ -39,10 +39,10 @@ public class QuestionRepo {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Question.KEY_level, question.level);
-        values.put(Question.KEY_sentence, question.sentence);
+        values.put(Question.KEY_level, question.getLevel());
+        values.put(Question.KEY_sentence, question.getSentence());
 
-        db.update(Question.TABLE, values, Question.KEY_ID + "= ?", new String[] { String.valueOf(question.question_ID) });
+        db.update(Question.TABLE, values, Question.KEY_ID + "= ?", new String[] { String.valueOf(question.getQuestion_ID()) });
         db.close();
     }
     public Question getQuestionById(int Id){
@@ -54,16 +54,15 @@ public class QuestionRepo {
                 + " WHERE " +
                 Question.KEY_ID + "=?";
 
-        int iCount =0;
         Question question = new Question();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
 
         if (cursor.moveToFirst()) {
             do {
-                question.question_ID =cursor.getInt(cursor.getColumnIndex(Question.KEY_ID));
-                question.sentence =cursor.getString(cursor.getColumnIndex(Question.KEY_sentence));
-                question.level =cursor.getInt(cursor.getColumnIndex(Question.KEY_level));
+                question.setQuestion_ID(cursor.getInt(cursor.getColumnIndex(Question.KEY_ID)));
+                question.setSentence(cursor.getString(cursor.getColumnIndex(Question.KEY_sentence)));
+                question.setLevel(cursor.getInt(cursor.getColumnIndex(Question.KEY_level)));
             } while (cursor.moveToNext());
         }
 
@@ -81,16 +80,15 @@ public class QuestionRepo {
                 + " WHERE " +
                 Question.KEY_level + "=?";
 
-        int iCount =0;
         Question question = new Question();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(levelId) } );
 
         if (cursor.moveToFirst()) {
             do {
-                question.question_ID =cursor.getInt(cursor.getColumnIndex(Question.KEY_ID));
-                question.sentence =cursor.getString(cursor.getColumnIndex(Question.KEY_sentence));
-                question.level =cursor.getInt(cursor.getColumnIndex(Question.KEY_level));
+                question.setQuestion_ID(cursor.getInt(cursor.getColumnIndex(Question.KEY_ID)));
+                question.setSentence(cursor.getString(cursor.getColumnIndex(Question.KEY_sentence)));
+                question.setLevel(cursor.getInt(cursor.getColumnIndex(Question.KEY_level)));
             } while (cursor.moveToNext());
         }
 

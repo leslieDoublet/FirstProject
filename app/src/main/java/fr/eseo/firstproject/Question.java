@@ -12,7 +12,31 @@ public class Question {
     public static final String KEY_level = "level";
 
 
-    public int question_ID;
-    public String sentence;
-    public int level;
+    private int question_ID;
+    private String sentence;
+    private int level;
+
+    public int getQuestion_ID() {
+        return question_ID;
+    }
+
+    public void setQuestion_ID(int question_ID) {
+        this.question_ID = question_ID;
+    }
+
+    public String getSentence() {
+        return sentence;
+    }
+
+    public void setSentence(String sentence) {
+        this.sentence = sentence;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }

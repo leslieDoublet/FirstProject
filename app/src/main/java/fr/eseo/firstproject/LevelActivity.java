@@ -34,12 +34,27 @@ public class LevelActivity extends FragmentActivity {
         Question question= qrepo.getQuestionByLevel(levelId);
 
         TextView questionSentence = (TextView) findViewById(R.id.question);
-        questionSentence.setText(question.sentence);
+        questionSentence.setText(question.getSentence());
+        questionId=question.getQuestion_ID();
+        question_string=question.getSentence();
 
-        questionId=question.question_ID;
-        question_string=question.sentence;
         ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
         responses =rrepo.getResponseByQuestion(LevelActivity.this.questionId);
+        int i=0,arraySize=responses.size(),idResponse,idRate;
+
+        do {
+
+            if (responses.get(i).isFound())
+            {
+                idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
+                idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
+                TextView responseWord = (TextView) findViewById(idResponse);
+                RatingBar rate = (RatingBar) findViewById(idRate);
+                rate.setRating(1);
+                responseWord.setText(responses.get(i).getWord());            }
+            i++;
+        }while ( i!=arraySize );
+
 
 
         final EditText editText = (EditText) findViewById(R.id.userResponse);
@@ -48,22 +63,30 @@ public class LevelActivity extends FragmentActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String userResponse = v.getText().toString();
-                    RatingBar rate = (RatingBar) findViewById(R.id.ratingBar);
 
-                    TextView responseWord = (TextView) findViewById(R.id.response);
 
-                    int arraySize=responses.size(),i=0;
+
+                    ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+
+                    int arraySize=responses.size(),i=0,idResponse,idRate;
                     boolean trouve=false;
                     do {
 
-                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).word))
+                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).getWord()))
                         {
+                            idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
+                            idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
+                            TextView responseWord = (TextView) findViewById(idResponse);
+                            RatingBar rate = (RatingBar) findViewById(idRate);
+
                             rate.setRating(1);
-                            responseWord.setText(responses.get(i).word);
+                            responseWord.setText(responses.get(i).getWord());
+                            responses.get(i).setFound(true);
+                            rrepo.update(responses.get(i));
                             trouve=true;
                         }
                         i++;
-                    }while (trouve==false && i!=arraySize );
+                    }while (!trouve && i!=arraySize );
                     editText.setText(null);
                     return true;
                 }
@@ -78,7 +101,7 @@ public class LevelActivity extends FragmentActivity {
 
         ArrayList<String> responses_word = new ArrayList<String>();
         for(int i=0; i<responses.size(); i++)
-            responses_word.add(responses.get(i).word);
+            responses_word.add(responses.get(i).getWord());
 
         intent.putExtra("reponses_word", responses_word );
         intent.putExtra("question", question_string );
