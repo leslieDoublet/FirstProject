@@ -5,64 +5,81 @@
     android:weightSum="1"
     android:background="#ffaaaaaa">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.47">
 
-        <TextView
-            android:layout_width="273dp"
-            android:layout_height="96dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/question"
-            android:layout_gravity="top|center"
-            android:textAlignment="center"
-            android:layout_marginTop="60dp"
-            android:layout_weight="0.13"
-            android:autoText="false"
-            android:textSize="30dp"
-            android:textColor="#ff000000"
-            android:gravity="center_horizontal" />
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="310dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-        <EditText
-            android:layout_width="206dp"
-            android:layout_height="35dp"
-            android:id="@+id/userResponse"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="20dp"
-            android:background="#ffffffff"
-            android:editable="true"
-            android:enabled="true"
-            android:singleLine="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
-
-        <FrameLayout
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:background="#ffb7eaff">
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="776dp"
+            android:layout_height="match_parent"
+            android:gravity="fill_horizontal|center_vertical|fill_vertical|center_horizontal"
+            android:measureWithLargestChild="false"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/response"
-                android:layout_gravity="bottom|center"
-                android:gravity="center_vertical|center_horizontal" />
+                android:layout_width="380dp"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/question"
+                android:textAlignment="center"
+                android:autoText="false"
+                android:textSize="30sp"
+                android:textColor="#ff000000"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_gravity="left|center_vertical" />
 
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ratingBar"
-                android:layout_gravity="center_horizontal|top"
-                android:numStars="1"
-                android:rating="0"
-                android:isIndicator="true"/>
-        </FrameLayout>
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#ffb7eaff"
+                android:layout_gravity="right|top"
+                android:nestedScrollingEnabled="false"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentRight="false"
+                android:id="@+id/response_layout"
+                android:layout_alignWithParentIfMissing="false"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/question"
+                android:layout_marginLeft="150dp">
 
-    </FrameLayout>
+                <TextView
+                    android:layout_width="132dp"
+                    android:layout_height="51dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/response"
+                    android:layout_gravity="bottom|center"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar"
+                    android:layout_gravity="center_horizontal|top"
+                    android:numStars="1"
+                    android:rating="0"
+                    android:isIndicator="true"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+    </HorizontalScrollView>
+
+    <EditText
+        android:layout_width="203dp"
+        android:layout_height="35dp"
+        android:id="@+id/userResponse"
+        android:layout_marginBottom="20dp"
+        android:background="#ffffffff"
+        android:editable="true"
+        android:enabled="true"
+        android:singleLine="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_gravity="bottom|center_horizontal" />
 
 </LinearLayout>

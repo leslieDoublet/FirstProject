@@ -1,12 +1,9 @@
 package fr.eseo.firstproject;
 
-//import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Adapter;
