@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="272dp"
         android:fillViewport="true"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:id="@+id/scrollView">
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -21,7 +22,7 @@
             android:weightSum="1">
 
             <TextView
-                android:layout_width="380dp"
+                android:layout_width="360dp"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
@@ -110,7 +111,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/view_response2"
                     android:layout_gravity="bottom|center"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"/>
 
                 <RatingBar
                     android:layout_width="wrap_content"
@@ -121,6 +122,18 @@
                     android:rating="0"
                     android:isIndicator="true"/>
             </FrameLayout>
+
+            <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:id="@+id/imageButton"
+                android:src="@drawable/retour"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:onClick="getBack"/>
+
         </RelativeLayout>
     </HorizontalScrollView>
 
@@ -151,6 +164,7 @@
             android:layout_marginLeft="30dp"
             android:src="@drawable/hint"
             android:onClick="getHint"/>
+
     </FrameLayout>
 
 </LinearLayout>

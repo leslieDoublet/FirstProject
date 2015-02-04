@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-        private static final int DATABASE_VERSION = 11;
+        private static final int DATABASE_VERSION = 12;
 
         // Database Name
         private static final String DATABASE_NAME = "crud.db";
@@ -52,6 +52,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(3) ";
             db.execSQL(INSERT_TABLE_LEVEL);
             INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(4) ";
+            db.execSQL(INSERT_TABLE_LEVEL);
+            INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(5) ";
+            db.execSQL(INSERT_TABLE_LEVEL);
+            INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(6) ";
+            db.execSQL(INSERT_TABLE_LEVEL);
+            INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(7) ";
+            db.execSQL(INSERT_TABLE_LEVEL);
+            INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(8) ";
+            db.execSQL(INSERT_TABLE_LEVEL);
+            INSERT_TABLE_LEVEL = "INSERT INTO " + Level.TABLE  + " ("+Level.KEY_number+") VALUES(9) ";
             db.execSQL(INSERT_TABLE_LEVEL);
 
             //insert question

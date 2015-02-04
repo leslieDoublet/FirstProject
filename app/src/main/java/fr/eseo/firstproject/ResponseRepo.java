@@ -107,4 +107,28 @@ public class ResponseRepo {
         db.close();
         return responses;
     }
+
+    public Response getNotFoundResponse(int questionId){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT " + Response.KEY_word + "," + Response.KEY_ID +
+                                " FROM " + Response.TABLE +
+                                " WHERE " + Response.KEY_found + "=0 " +
+                                " AND " + Response.KEY_question + "=?";
+
+        Response response = new Response();
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(questionId) } );
+
+        if (cursor.moveToFirst()) {
+                response.setWord(cursor.getString(cursor.getColumnIndex(Response.KEY_word)));
+                response.setResponse_ID(cursor.getInt(cursor.getColumnIndex(Response.KEY_ID)));
+        }
+        else{
+            response=null;
+        }
+
+        cursor.close();
+        db.close();
+        return response;
+    }
 }

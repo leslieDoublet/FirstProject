@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,49 +47,53 @@ public class LevelActivity extends FragmentActivity {
         int i=0,arraySize=responses.size(),idResponse,idRate;
         if(arraySize !=0) {
             do {
-
-                if (responses.get(i).isFound()) {
-                    idResponse = getResources().getIdentifier("view_response" + i, "id", "fr.eseo.firstproject");
-                    idRate = getResources().getIdentifier("ratingBar_response" + i, "id", "fr.eseo.firstproject");
+                if (responses.get(i).isFound())
+                {
+                    idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
+                    idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
                     TextView responseWord = (TextView) findViewById(idResponse);
                     RatingBar rate = (RatingBar) findViewById(idRate);
                     rate.setRating(1);
                     responseWord.setText(responses.get(i).getWord());
                 }
                 i++;
-            } while (i != arraySize);
+            }while ( i!=arraySize );
         }else{
             Toast.makeText(this, "No Responses in this question !", Toast.LENGTH_SHORT).show();
         }
 
-
+        //On écoute les actions
         final EditText editText = (EditText) findViewById(R.id.userResponse);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                //Si l'utilisateur appuie sur entrée pour envoyer sa réponse
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String userResponse = v.getText().toString();
 
-
+                    String userResponse = v.getText().toString();   //La réponse de l'utilisateur
 
                     ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
 
                     int arraySize=responses.size(),i=0,idResponse,idRate;
                     boolean trouve=false;
                     do {
-
-                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).getWord()))
+                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).getWord()))   //Si la réponse est correcte...
                         {
                             idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
                             idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
+
                             TextView responseWord = (TextView) findViewById(idResponse);
                             RatingBar rate = (RatingBar) findViewById(idRate);
 
-                            rate.setRating(1);
-                            responseWord.setText(responses.get(i).getWord());
-                            responses.get(i).setFound(true);
+                            responseWord.setText(responses.get(i).getWord());   //On écrit la réponse...
+                            rate.setRating(1);  //Et on coche l'étoile correspondante
+
+                            responses.get(i).setFound(true);    //Dans la DB on indique que le mot a été trouvé
                             rrepo.update(responses.get(i));
                             trouve=true;
+
+                            HorizontalScrollView scroll = (HorizontalScrollView) findViewById(R.id.scrollView);
+                            scroll.fullScroll(View.FOCUS_RIGHT);
                         }
                         i++;
                     }while (!trouve && i!=arraySize );
@@ -102,44 +107,34 @@ public class LevelActivity extends FragmentActivity {
 
     public void getHint (View view)
     {
-        Intent intent = new Intent(this,HintActivity.class);
+        ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+        Response response = rrepo.getNotFoundResponse(questionId);
+        //Encore des mots à trouver ?
+        if(response!=null)
+        {
+            Intent intent = new Intent(this, HintActivity.class);
 
-        ArrayList<String> responses_word = new ArrayList<String>();
-        for(int i=0; i<responses.size(); i++)
-            responses_word.add(responses.get(i).getWord());
+            String response_word = response.getWord();
+            int response_id = response.getResponse_ID();
 
-        intent.putExtra("reponses_word", responses_word );
-        intent.putExtra("question", question_string );
-        intent.putExtra("id", questionId);
+            intent.putExtra("responseToFind_Id", response_id);  //Id de la réponse dont on veut l'indice
+            intent.putExtra("responseToFind", response_word);   //Mot dont on veut l'indice
+            intent.putExtra("question", question_string);   //La question
+            intent.putExtra("level_Id", levelId);   //Id du niveau
+            intent.putExtra("question_Id", questionId); //Id de la question
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(LevelActivity.this, "Auncun mot à trouver", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void getBack(View view)
+    {
+        Intent intent = new Intent(LevelActivity.this, QuestionActivity.class);
         intent.putExtra("level_Id", levelId);
         startActivity(intent);
     }
 
 }
-/*
-//pour le swipe
-public class LevelActivity extends FragmentActivity {
-
-    private PagerAdapter mPagerAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_level);
-
-        // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List<Fragment> fragments = new Vector<Fragment>();
-
-        // Ajout des Fragments dans la liste
-        fragments.add(Fragment.instantiate(this, Question_frag.class.getName()));
-        fragments.add(Fragment.instantiate(this, Response_frag.class.getName()));
-
-        // Création de l'adapter qui s'occupera de l'affichage de la liste de Fragments
-        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-
-        ViewPager pager = (ViewPager) super.findViewById(R.id.viewPager);
-        // Affectation de l'adapter au ViewPager
-        pager.setAdapter(this.mPagerAdapter);
-    }
-}
-*/

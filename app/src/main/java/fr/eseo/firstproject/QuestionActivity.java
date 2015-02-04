@@ -1,49 +1,74 @@
 package fr.eseo.firstproject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by sirt on 04/02/2015.
  */
-public class QuestionActivity extends Activity {
+public class QuestionActivity extends FragmentActivity {
 
-    ArrayList<Question> questions;
-    TextView questionId;
+    private ArrayList<Question> questions;
+    private TextView questionId;
+
+    private PagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        int levelId=0;
+        //SWIPE ************
+        // Création de la liste de Fragments que fera défiler le PagerAdapter
+        List<Fragment> fragments = new Vector<>();
+
+        // Ajout des Fragments dans la liste
+        fragments.add(Fragment.instantiate(QuestionActivity.this, Question0_frag.class.getName()));
+        //fragments.add(Fragment.instantiate(this, Response_frag.class.getName()));
+        fragments.add(Fragment.instantiate(QuestionActivity.this, Question1_frag.class.getName()));
+        fragments.add(Fragment.instantiate(QuestionActivity.this, Question2_frag.class.getName()));
+
+        // Création de l'adapter qui s'occupera de l'affichage de la liste de Fragments
+        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
+
+        ViewPager pager = (ViewPager) super.findViewById(R.id.viewPager);
+        // Affectation de l'adapter au ViewPager
+        pager.setAdapter(this.mPagerAdapter);
+        //******************
+
+        int levelId = 0;
         Intent intent = getIntent();
-        levelId =intent.getIntExtra("level_Id", 0);
+        levelId = intent.getIntExtra("level_Id", 0);
 
         QuestionRepo qrepo = new QuestionRepo(this);
-        questions= qrepo.getQuestionByLevel(levelId);
-        int i = 0, arraySize = questions.size(), idQuestion;
-        if(arraySize !=0) {
-            do {
-                idQuestion = getResources().getIdentifier("question" + i, "id", "fr.eseo.firstproject");
-                Button question = (Button) findViewById(idQuestion);
-                question.setText(questions.get(i).getSentence());
-                // question.setOnClickListener((OnClickListener)this);
-                i++;
-            } while (i != arraySize);
-        }else{
-            Toast.makeText(this, "No questions in this level !", Toast.LENGTH_SHORT).show();
-        }
+        questions = qrepo.getQuestionByLevel(levelId);
+
+        //int i=0,arraySize=questions.size(),idQuestion;
+        //do {
+        //idQuestion = getResources().getIdentifier("question"+i, "id", "fr.eseo.firstproject");
+        //Button question = (Button) findViewById(idQuestion);
+        //question.setText(questions.get(i).getSentence());
+        ((Question0_frag) fragments.get(0)).setButtonText(questions.get(0).getSentence());
+        ((Question1_frag) fragments.get(1)).setButtonText(questions.get(1).getSentence());
+        ((Question2_frag) fragments.get(2)).setButtonText(questions.get(2).getSentence());
+
+        // i++;
+        // }while ( i!=arraySize );
     }
+
 
     public void onClick(View v) {
         int questionId=0;
@@ -61,7 +86,7 @@ public class QuestionActivity extends Activity {
         startActivity(objIndent);
     }
 
-    public void onClick0(View v) {
+    /*public void onClick0(View v) {
         int levelId=questions.get(0).getLevel();
         int questionId = questions.get(0).getQuestion_ID();
         Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
@@ -85,115 +110,11 @@ public class QuestionActivity extends Activity {
         objIndent.putExtra("level_Id", levelId);
         objIndent.putExtra("question_Id", questionId);
         startActivity(objIndent);
-    }
-}
-/* à échanger avec LevelActivity
+    }*/
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-
-public class QuestionActivity extends Activity {
-    private int levelId;
-    private int questionId;
-    private String question_string;
-    private ArrayList<Response> responses ;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level);
-
-        levelId =0;
-        Intent intent = getIntent();
-        levelId =intent.getIntExtra("level_Id", 0);
-        QuestionRepo qrepo = new QuestionRepo(this);
-        Question question= qrepo.getQuestionByLevel(levelId);
-
-        TextView questionSentence = (TextView) findViewById(R.id.question);
-        questionSentence.setText(question.getSentence());
-        questionId=question.getQuestion_ID();
-        question_string=question.getSentence();
-
-        ResponseRepo rrepo = new ResponseRepo(QuestionActivity.this);
-        responses =rrepo.getResponseByQuestion(questionId);
-        int i=0,arraySize=responses.size(),idResponse,idRate;
-
-        do {
-
-            if (responses.get(i).isFound())
-            {
-                idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
-                idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
-                TextView responseWord = (TextView) findViewById(idResponse);
-                RatingBar rate = (RatingBar) findViewById(idRate);
-                rate.setRating(1);
-                responseWord.setText(responses.get(i).getWord());            }
-            i++;
-        }while ( i!=arraySize );
-
-
-
-        final EditText editText = (EditText) findViewById(R.id.userResponse);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    String userResponse = v.getText().toString();
-
-
-
-                    ResponseRepo rrepo = new ResponseRepo(QuestionActivity.this);
-
-                    int arraySize=responses.size(),i=0,idResponse,idRate;
-                    boolean trouve=false;
-                    do {
-
-                        if (userResponse.trim().equalsIgnoreCase(responses.get(i).getWord()))
-                        {
-                            idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
-                            idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
-                            TextView responseWord = (TextView) findViewById(idResponse);
-                            RatingBar rate = (RatingBar) findViewById(idRate);
-
-                            rate.setRating(1);
-                            responseWord.setText(responses.get(i).getWord());
-                            responses.get(i).setFound(true);
-                            rrepo.update(responses.get(i));
-                            trouve=true;
-                        }
-                        i++;
-                    }while (!trouve && i!=arraySize );
-                    editText.setText(null);
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    public void getHint (View view)
+    public void getBack(View view)
     {
-        Intent intent = new Intent(this,HintActivity.class);
-
-        ArrayList<String> responses_word = new ArrayList<String>();
-        for(int i=0; i<responses.size(); i++)
-            responses_word.add(responses.get(i).getWord());
-
-        intent.putExtra("reponses_word", responses_word );
-        intent.putExtra("question", question_string );
-        intent.putExtra("id", questionId);
-        intent.putExtra("level_Id", levelId);
+        Intent intent = new Intent(QuestionActivity.this, MainActivity.class);
         startActivity(intent);
     }
-
 }
-*/
