@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//Activité principale
 public class MainActivity extends ListActivity{
 
     TextView level_Id;
