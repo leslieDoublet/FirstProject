@@ -21,11 +21,6 @@
             android:label="@string/title_activity"
             android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
-        <activity
-            android:name=".LevelDetail"
-            android:label="@string/level_detail_activity"
-            android:windowSoftInputMode="stateAlwaysVisible">
-        </activity>
     </application>
 
 </manifest>
