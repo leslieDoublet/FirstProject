@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 /**
  * Created by sirt on 03/02/2015.
  */
@@ -49,6 +51,7 @@ public class QuestionRepo {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Question.KEY_ID + "," +
+                Question.KEY_level + "," +
                 Question.KEY_sentence +
                 " FROM " + Question.TABLE
                 + " WHERE " +
@@ -70,8 +73,10 @@ public class QuestionRepo {
         db.close();
         return question;
     }
-    public Question getQuestionByLevel(int levelId){
+    public ArrayList<Question> getQuestionByLevel(int levelId){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        ArrayList<Question> questions= new ArrayList<Question>();
+
         String selectQuery =  "SELECT  " +
                 Question.KEY_ID + "," +
                 Question.KEY_level + "," +
@@ -80,20 +85,20 @@ public class QuestionRepo {
                 + " WHERE " +
                 Question.KEY_level + "=?";
 
-        Question question = new Question();
-
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(levelId) } );
 
         if (cursor.moveToFirst()) {
             do {
+                Question question = new Question();
                 question.setQuestion_ID(cursor.getInt(cursor.getColumnIndex(Question.KEY_ID)));
                 question.setSentence(cursor.getString(cursor.getColumnIndex(Question.KEY_sentence)));
                 question.setLevel(cursor.getInt(cursor.getColumnIndex(Question.KEY_level)));
+                questions.add(question);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return question;
+        return questions;
     }
 }

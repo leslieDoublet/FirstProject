@@ -49,12 +49,12 @@ public class HintActivity extends Activity {
                         {
                             responseWord.setText(responses.get(i));
                             trouve=true;
-                            Intent LevelIntent = new Intent(HintActivity.this, LevelActivity.class);
+                            Intent LevelIntent = new Intent(HintActivity.this, QuestionActivity.class);
                             LevelIntent.putExtra("level_Id", levelId);
                             startActivity(LevelIntent);
                         }
                         i++;
-                    }while (trouve==false && i!=arraySize );
+                    }while (!trouve && i!=arraySize );
                     editText.setText(null);
                     return true;
                 }

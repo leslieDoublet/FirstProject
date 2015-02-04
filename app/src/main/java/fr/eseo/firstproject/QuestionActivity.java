@@ -1,8 +1,90 @@
 package fr.eseo.firstproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.view.View;
+
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+/**
+ * Created by sirt on 04/02/2015.
+ */
+public class QuestionActivity extends Activity {
+
+    ArrayList<Question> questions;
+    TextView questionId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question);
+
+        int levelId=0;
+        Intent intent = getIntent();
+        levelId =intent.getIntExtra("level_Id", 0);
+
+        QuestionRepo qrepo = new QuestionRepo(this);
+        questions= qrepo.getQuestionByLevel(levelId);
+
+        View.OnClickListener cl= new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int levelId=questions.get(0).getLevel();
+                int questionId = findViewById(R.id.question0).getId();
+                Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
+                objIndent.putExtra("level_Id", levelId);
+                objIndent.putExtra("question_Id", questionId);
+                startActivity(objIndent);
+            }
+        };
+
+        int i=0,arraySize=questions.size(),idQuestion;
+        do {
+            idQuestion = getResources().getIdentifier("question"+i, "id", "fr.eseo.firstproject");
+            Button question = (Button) findViewById(idQuestion);
+            question.setText(questions.get(i).getSentence());
+          //  question.setOnClickListener(cl);
+            i++;
+        }while ( i!=arraySize );
+
+
+    }
+    public void onClick0(View v) {
+        int levelId=questions.get(0).getLevel();
+        int questionId = questions.get(0).getQuestion_ID();
+        Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
+        objIndent.putExtra("level_Id", levelId);
+        objIndent.putExtra("question_Id", questionId);
+        startActivity(objIndent);
+    }
+    public void onClick1(View v) {
+
+        int levelId=questions.get(1).getLevel();
+        int questionId = questions.get(1).getQuestion_ID();
+        Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
+        objIndent.putExtra("level_Id", levelId);
+        objIndent.putExtra("question_Id", questionId);
+        startActivity(objIndent);
+    }
+    public void onClick2(View v) {
+        int levelId=questions.get(2).getLevel();
+        int questionId = questions.get(2).getQuestion_ID();
+        Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
+        objIndent.putExtra("level_Id", levelId);
+        objIndent.putExtra("question_Id", questionId);
+        startActivity(objIndent);
+    }
+}
+/* à échanger avec LevelActivity
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,15 +94,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by etudiant on 02/02/2015.
- */
-public class LevelActivity extends FragmentActivity {
-
+public class QuestionActivity extends Activity {
     private int levelId;
     private int questionId;
     private String question_string;
-    private  ArrayList<Response> responses ;
+    private ArrayList<Response> responses ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +106,17 @@ public class LevelActivity extends FragmentActivity {
         setContentView(R.layout.activity_level);
 
         levelId =0;
-        questionId=0;
         Intent intent = getIntent();
         levelId =intent.getIntExtra("level_Id", 0);
-        questionId=intent.getIntExtra("question_Id", 0);
-
         QuestionRepo qrepo = new QuestionRepo(this);
-        Question question= qrepo.getQuestionById(questionId);
+        Question question= qrepo.getQuestionByLevel(levelId);
 
         TextView questionSentence = (TextView) findViewById(R.id.question);
         questionSentence.setText(question.getSentence());
+        questionId=question.getQuestion_ID();
         question_string=question.getSentence();
 
-        ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+        ResponseRepo rrepo = new ResponseRepo(QuestionActivity.this);
         responses =rrepo.getResponseByQuestion(questionId);
         int i=0,arraySize=responses.size(),idResponse,idRate;
 
@@ -68,7 +144,7 @@ public class LevelActivity extends FragmentActivity {
 
 
 
-                    ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
+                    ResponseRepo rrepo = new ResponseRepo(QuestionActivity.this);
 
                     int arraySize=responses.size(),i=0,idResponse,idRate;
                     boolean trouve=false;
@@ -112,31 +188,5 @@ public class LevelActivity extends FragmentActivity {
         startActivity(intent);
     }
 
-}
-/*
-//pour le swipe
-public class LevelActivity extends FragmentActivity {
-
-    private PagerAdapter mPagerAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_level);
-
-        // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List<Fragment> fragments = new Vector<Fragment>();
-
-        // Ajout des Fragments dans la liste
-        fragments.add(Fragment.instantiate(this, Question_frag.class.getName()));
-        fragments.add(Fragment.instantiate(this, Response_frag.class.getName()));
-
-        // Création de l'adapter qui s'occupera de l'affichage de la liste de Fragments
-        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-
-        ViewPager pager = (ViewPager) super.findViewById(R.id.viewPager);
-        // Affectation de l'adapter au ViewPager
-        pager.setAdapter(this.mPagerAdapter);
-    }
 }
 */

@@ -26,6 +26,11 @@
             android:label="@string/hint_activity"
             android:windowSoftInputMode="stateAlwaysVisible">
         </activity>
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/question_activity"
+            android:windowSoftInputMode="stateAlwaysVisible">
+        </activity>
     </application>
 
 </manifest>
