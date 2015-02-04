@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-        private static final int DATABASE_VERSION = 12;
+        private static final int DATABASE_VERSION = 13;
 
         // Database Name
         private static final String DATABASE_NAME = "crud.db";
@@ -82,6 +82,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.execSQL(INSERT_TABLE_QUESTION);
             INSERT_TABLE_QUESTION = "INSERT INTO " + Question.TABLE  + " ("+Question.KEY_sentence+","+Question.KEY_level+") VALUES('Créature imaginaire',3) ";
             db.execSQL(INSERT_TABLE_QUESTION);
+            INSERT_TABLE_QUESTION = "INSERT INTO " + Question.TABLE  + " ("+Question.KEY_sentence+","+Question.KEY_level+") VALUES('Excuse pour justifier son retard',4) ";
+            db.execSQL(INSERT_TABLE_QUESTION);
+            INSERT_TABLE_QUESTION = "INSERT INTO " + Question.TABLE  + " ("+Question.KEY_sentence+","+Question.KEY_level+") VALUES('Ce que l on trouve dans le refrigerateur',4) ";
+            db.execSQL(INSERT_TABLE_QUESTION);
+            INSERT_TABLE_QUESTION = "INSERT INTO " + Question.TABLE  + " ("+Question.KEY_sentence+","+Question.KEY_level+") VALUES('Sport sans balle ni ballon',4) ";
+            db.execSQL(INSERT_TABLE_QUESTION);
             //insert response
             String INSERT_TABLE_RESPONSE;
             INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Tronc',0,1) ";
@@ -140,6 +146,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.execSQL(INSERT_TABLE_RESPONSE);
             INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Sorcière',0,9) ";
             db.execSQL(INSERT_TABLE_RESPONSE);
+
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Embouteillage',0,10) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Panne',0,10) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Réveil',0,10) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Fromage',0,11) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Boisson',0,11) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Légumes',0,11) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Gymnastique',0,12) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Natation',0,12) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+            INSERT_TABLE_RESPONSE = "INSERT INTO " + Response.TABLE  + " ("+Response.KEY_word+","+Response.KEY_found+","+Response.KEY_question+") VALUES('Athlétisme',0,12) ";
+            db.execSQL(INSERT_TABLE_RESPONSE);
+
 
 
 
