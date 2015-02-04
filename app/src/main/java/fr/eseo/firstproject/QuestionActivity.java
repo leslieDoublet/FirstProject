@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,31 +31,36 @@ public class QuestionActivity extends Activity {
 
         QuestionRepo qrepo = new QuestionRepo(this);
         questions= qrepo.getQuestionByLevel(levelId);
-
-        View.OnClickListener cl= new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int levelId=questions.get(0).getLevel();
-                int questionId = findViewById(R.id.question0).getId();
-                Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
-                objIndent.putExtra("level_Id", levelId);
-                objIndent.putExtra("question_Id", questionId);
-                startActivity(objIndent);
-            }
-        };
-
-        int i=0,arraySize=questions.size(),idQuestion;
-        do {
-            idQuestion = getResources().getIdentifier("question"+i, "id", "fr.eseo.firstproject");
-            Button question = (Button) findViewById(idQuestion);
-            question.setText(questions.get(i).getSentence());
-          //  question.setOnClickListener(cl);
-            i++;
-        }while ( i!=arraySize );
-
-
+        int i = 0, arraySize = questions.size(), idQuestion;
+        if(arraySize !=0) {
+            do {
+                idQuestion = getResources().getIdentifier("question" + i, "id", "fr.eseo.firstproject");
+                Button question = (Button) findViewById(idQuestion);
+                question.setText(questions.get(i).getSentence());
+                // question.setOnClickListener((OnClickListener)this);
+                i++;
+            } while (i != arraySize);
+        }else{
+            Toast.makeText(this, "No questions in this level !", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    public void onClick(View v) {
+        int questionId=0;
+        int levelId=questions.get(0).getLevel();
+        if (v.getId()==R.id.question0) {
+            questionId = questions.get(0).getQuestion_ID();
+        }else if(v.getId()==R.id.question1){
+            questionId = questions.get(1).getQuestion_ID();
+        }else if(v.getId()==R.id.question2){
+            questionId = questions.get(2).getQuestion_ID();
+        }
+        Intent objIndent = new Intent(getApplicationContext(),LevelActivity.class);
+        objIndent.putExtra("level_Id", levelId);
+        objIndent.putExtra("question_Id", questionId);
+        startActivity(objIndent);
+    }
+
     public void onClick0(View v) {
         int levelId=questions.get(0).getLevel();
         int questionId = questions.get(0).getQuestion_ID();

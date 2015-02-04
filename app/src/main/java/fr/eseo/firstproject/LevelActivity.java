@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,20 +44,22 @@ public class LevelActivity extends FragmentActivity {
         ResponseRepo rrepo = new ResponseRepo(LevelActivity.this);
         responses =rrepo.getResponseByQuestion(questionId);
         int i=0,arraySize=responses.size(),idResponse,idRate;
+        if(arraySize !=0) {
+            do {
 
-        do {
-
-            if (responses.get(i).isFound())
-            {
-                idResponse = getResources().getIdentifier("view_response"+i, "id", "fr.eseo.firstproject");
-                idRate = getResources().getIdentifier("ratingBar_response"+i, "id", "fr.eseo.firstproject");
-                TextView responseWord = (TextView) findViewById(idResponse);
-                RatingBar rate = (RatingBar) findViewById(idRate);
-                rate.setRating(1);
-                responseWord.setText(responses.get(i).getWord());            }
-            i++;
-        }while ( i!=arraySize );
-
+                if (responses.get(i).isFound()) {
+                    idResponse = getResources().getIdentifier("view_response" + i, "id", "fr.eseo.firstproject");
+                    idRate = getResources().getIdentifier("ratingBar_response" + i, "id", "fr.eseo.firstproject");
+                    TextView responseWord = (TextView) findViewById(idResponse);
+                    RatingBar rate = (RatingBar) findViewById(idRate);
+                    rate.setRating(1);
+                    responseWord.setText(responses.get(i).getWord());
+                }
+                i++;
+            } while (i != arraySize);
+        }else{
+            Toast.makeText(this, "No Responses in this question !", Toast.LENGTH_SHORT).show();
+        }
 
 
         final EditText editText = (EditText) findViewById(R.id.userResponse);
