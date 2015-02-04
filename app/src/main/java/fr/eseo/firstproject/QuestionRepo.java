@@ -63,6 +63,7 @@ public class QuestionRepo {
 
         if (cursor.moveToFirst()) {
             do {
+
                 question.setQuestion_ID(cursor.getInt(cursor.getColumnIndex(Question.KEY_ID)));
                 question.setSentence(cursor.getString(cursor.getColumnIndex(Question.KEY_sentence)));
                 question.setLevel(cursor.getInt(cursor.getColumnIndex(Question.KEY_level)));

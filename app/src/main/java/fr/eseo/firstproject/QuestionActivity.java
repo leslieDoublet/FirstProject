@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-
+/**
+ * Created by sirt on 04/02/2015.
+ */
 public class QuestionActivity extends FragmentActivity {
 
     private ArrayList<Question> questions;
@@ -30,7 +32,6 @@ public class QuestionActivity extends FragmentActivity {
 
         // Ajout des Fragments dans la liste
         fragments.add(Fragment.instantiate(QuestionActivity.this, Question0_frag.class.getName()));
-        //fragments.add(Fragment.instantiate(this, Response_frag.class.getName()));
         fragments.add(Fragment.instantiate(QuestionActivity.this, Question1_frag.class.getName()));
         fragments.add(Fragment.instantiate(QuestionActivity.this, Question2_frag.class.getName()));
 
@@ -48,22 +49,17 @@ public class QuestionActivity extends FragmentActivity {
 
         QuestionRepo qrepo = new QuestionRepo(this);
         questions = qrepo.getQuestionByLevel(levelId);
-        int arraySize = questions.size();
-        if(arraySize !=0) {
-            //int i=0,arraySize=questions.size(),idQuestion;
-            //do {
-            //idQuestion = getResources().getIdentifier("question"+i, "id", "fr.eseo.firstproject");
-            //Button question = (Button) findViewById(idQuestion);
-            //question.setText(questions.get(i).getSentence());
+        int arraySize=questions.size();
+        if(arraySize!=0) {
+
             ((Question0_frag) fragments.get(0)).setButtonText(questions.get(0).getSentence());
             ((Question1_frag) fragments.get(1)).setButtonText(questions.get(1).getSentence());
             ((Question2_frag) fragments.get(2)).setButtonText(questions.get(2).getSentence());
 
-            // i++;
-            // }while ( i!=arraySize );
+        }else{
+            Toast.makeText(this,"No questions in this level !",Toast.LENGTH_SHORT).show();
+            getBack(null);
         }
-        else
-            Toast.makeText(this, "No question in this level", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -85,7 +81,8 @@ public class QuestionActivity extends FragmentActivity {
 
     public void getBack(View view)
     {
-        Intent intent = new Intent(QuestionActivity.this, MainActivity.class);
-        startActivity(intent);
+        QuestionActivity.this.finish();
+        // Intent intent = new Intent(QuestionActivity.this, MainActivity.class);
+       // startActivity(intent);
     }
 }

@@ -100,9 +100,12 @@ public class HintActivity extends Activity {
 
     public void getBack(View view)
     {
-        Intent intent = new Intent(HintActivity.this, LevelActivity.class);
+        finish();
+
+       /* Intent intent = new Intent(HintActivity.this, LevelActivity.class);
         intent.putExtra("level_Id", levelId);   //Id du niveau
         intent.putExtra("question_Id", questionId); //Id de la question
-        startActivity(intent);
+         startActivity(intent);
+        */
     }
 }

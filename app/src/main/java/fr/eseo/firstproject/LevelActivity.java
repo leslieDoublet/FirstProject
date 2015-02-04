@@ -123,7 +123,7 @@ public class LevelActivity extends FragmentActivity {
         }
         else
         {
-            Toast.makeText(LevelActivity.this, "Auncun mot à trouver", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LevelActivity.this, "Aucun mot à trouver", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,7 +131,8 @@ public class LevelActivity extends FragmentActivity {
     {
         Intent intent = new Intent(LevelActivity.this, QuestionActivity.class);
         intent.putExtra("level_Id", levelId);
-        startActivity(intent);
+        finish();
+      //  startActivity(intent);
     }
 
 }
